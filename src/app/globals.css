@@ -1,0 +1,667 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Base: graphite, not pure black ─────────── */
+  --ink: #0e0f11;
+  --ink-raised: #14161a;
+
+  --background: var(--ink);
+  --foreground: #f4f5f7;
+  --muted-foreground: #8e9196;
+
+  /* ── Brand, sampled from the Brado flyer ────── */
+  --brand: #17369f;        /* ultramarine — the flyer blue   */
+  --brand-bright: #2447c7; /* same hue, more punch on ink    */
+  --brand-deep: #0f2570;
+  --signal: #5b82f5;       /* legible blue for text on ink   */
+  --concrete: #9a9a9a;     /* the flyer's grey               */
+  --concrete-dark: #55585c;
+
+  /* ── Sea tint, structural only ──────────────── */
+  --brado-blue: var(--brand);
+  --brado-blue-dark: var(--brand-deep);
+  --brado-blue-light: var(--signal);
+
+  /* Kept for compatibility — folded into the brand */
+  --legacy-grey: #2a2c30;
+  --legacy-mustard: var(--brand-bright);
+  --legacy-mustard-dark: var(--brand-deep);
+
+  /* ── Surfaces ───────────────────────────────── */
+  --surface: #13151a;
+  --surface-raised: #1a1d23;
+  --border-subtle: rgba(244, 245, 247, 0.1);
+  --border-strong: rgba(244, 245, 247, 0.2);
+
+  --brado-gray: #eef0f3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-ink: var(--ink);
+  --color-ink-raised: var(--ink-raised);
+  --color-brand: var(--brand);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-deep: var(--brand-deep);
+  --color-signal: var(--signal);
+  --color-concrete: var(--concrete);
+  --color-concrete-dark: var(--concrete-dark);
+  --color-brado-blue: var(--brado-blue);
+  --color-brado-blue-dark: var(--brado-blue-dark);
+  --color-brado-blue-light: var(--brado-blue-light);
+  --color-legacy-grey: var(--legacy-grey);
+  --color-legacy-mustard: var(--legacy-mustard);
+  --color-legacy-mustard-dark: var(--legacy-mustard-dark);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-brado-gray: var(--brado-gray);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-poster);
+  --font-mono: var(--font-micro);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-bright);
+  color: #ffffff;
+}
+
+.font-display {
+  font-family: var(--font-poster), "Arial Narrow", system-ui, sans-serif;
+}
+
+/* ══ Poster typography ══════════════════════════ */
+
+.poster {
+  font-family: var(--font-poster), "Arial Narrow", system-ui, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.015em;
+}
+
+.poster-xl {
+  font-size: clamp(3.4rem, 13vw, 11rem);
+}
+
+.poster-lg {
+  font-size: clamp(2.6rem, 8vw, 6rem);
+}
+
+.poster-md {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+/* Outlined line — the blue "cut" in the headline */
+.poster-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--signal);
+  text-stroke: 1px var(--signal);
+  transition: color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .poster-outline {
+    -webkit-text-stroke-width: 1.5px;
+  }
+}
+
+.poster-signal {
+  color: var(--signal);
+}
+
+/* ══ Micro labels (mono, numbered) ══════════════ */
+
+.micro {
+  font-family: var(--font-micro), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.micro-signal {
+  color: var(--signal);
+}
+
+.micro-sm {
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+}
+
+/* ══ Film grain ═════════════════════════════════ */
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ══ Hero: shore, not tech grid ═════════════════ */
+
+.shore-bg {
+  background:
+    radial-gradient(
+      120% 90% at 8% 108%,
+      rgba(23, 54, 159, 0.62) 0%,
+      rgba(23, 54, 159, 0.15) 38%,
+      transparent 68%
+    ),
+    radial-gradient(
+      75% 65% at 102% -4%,
+      rgba(23, 54, 159, 0.32) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      100% 80% at 88% 96%,
+      rgba(154, 154, 154, 0.12) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      70% 50% at 50% -10%,
+      rgba(244, 245, 247, 0.05) 0%,
+      transparent 70%
+    ),
+    var(--ink);
+}
+
+/* The waterline — the spine of the whole site */
+.horizon {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(91, 130, 245, 0.5) 12%,
+    rgba(91, 130, 245, 0.5) 88%,
+    transparent 100%
+  );
+}
+
+.water {
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 13, 24, 0) 0%,
+    rgba(10, 15, 30, 0.6) 28%,
+    rgba(8, 10, 18, 0.92) 100%
+  );
+}
+
+/* Two slow swells drifting under the waterline */
+.swell {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(
+    50% 100% at 50% 100%,
+    rgba(91, 130, 245, 0.14) 0%,
+    transparent 70%
+  );
+  animation: swell-drift 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.swell-2 {
+  animation-duration: 38s;
+  animation-delay: -12s;
+  opacity: 0.6;
+  background: radial-gradient(
+    40% 100% at 40% 100%,
+    rgba(91, 130, 245, 0.1) 0%,
+    transparent 70%
+  );
+}
+
+@keyframes swell-drift {
+  from {
+    transform: translateX(-8%) scaleY(0.92);
+  }
+  to {
+    transform: translateX(8%) scaleY(1.06);
+  }
+}
+
+/* Vertical edge label */
+.edge-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ══ Marquee band ═══════════════════════════════ */
+
+.marquee-mask {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+  animation-duration: 56s;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ══ Editorial rows (replaces card grids) ═══════ */
+
+.row-rule {
+  border-top: 1px solid var(--border-subtle);
+  transition:
+    background 0.4s ease,
+    padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.row-rule:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(91, 130, 245, 0.07) 0%,
+    transparent 60%
+  );
+}
+
+@media (min-width: 768px) {
+  .row-rule:hover {
+    padding-left: 1.25rem;
+  }
+}
+
+.row-rule:hover .row-index {
+  color: var(--signal);
+}
+
+.row-index {
+  transition: color 0.4s ease;
+}
+
+/* Brass arrow link */
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.arrow-link svg {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-link:hover svg {
+  transform: translateX(6px);
+}
+
+/* ══ Curtain entrance ═══════════════════════════ */
+
+.curtain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--ink);
+  transition: opacity 0.6s ease-out;
+}
+
+.curtain-fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.curtain-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 5vw, 4rem);
+}
+
+.curtain-wordmark {
+  font-family: var(--font-poster), "Arial Narrow", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 22vw, 18rem);
+  line-height: 0.8;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+}
+
+.curtain-line {
+  height: 1px;
+  background: var(--brand-bright);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: curtain-sweep 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes curtain-sweep {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ══ Scroll reveal ══════════════════════════════ */
+
+.sr-hidden {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.sr-up {
+  transform: translateY(48px);
+}
+
+.sr-left {
+  transform: translateX(-48px);
+}
+
+.sr-right {
+  transform: translateX(48px);
+}
+
+.sr-scale {
+  transform: scale(0.94);
+}
+
+.sr-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ══ Hero copy stagger ═════════════════════════ */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-stagger > * {
+  opacity: 0;
+  animation: rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-stagger > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.hero-stagger > *:nth-child(2) {
+  animation-delay: 0.22s;
+}
+.hero-stagger > *:nth-child(3) {
+  animation-delay: 0.34s;
+}
+.hero-stagger > *:nth-child(4) {
+  animation-delay: 0.46s;
+}
+.hero-stagger > *:nth-child(5) {
+  animation-delay: 0.58s;
+}
+.hero-stagger > *:nth-child(6) {
+  animation-delay: 0.7s;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(0.35);
+    opacity: 1;
+  }
+}
+
+.scroll-cue {
+  transform-origin: top;
+  animation: breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.live-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* ══ Decorative utilities ═══════════════════════ */
+
+.accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--signal), transparent);
+}
+
+.mustard-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--signal), transparent);
+}
+
+.text-gradient-blue,
+.text-gradient-mustard {
+  color: var(--signal);
+}
+
+.heritage-band {
+  background-color: #100f0d;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 22px,
+    rgba(91, 130, 245, 0.07) 22px,
+    rgba(91, 130, 245, 0.07) 23px
+  );
+}
+
+/* Legacy banner classes, retuned to the shore look */
+.hero-gradient {
+  background:
+    radial-gradient(
+      100% 90% at 6% 110%,
+      rgba(23, 54, 159, 0.42) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      90% 70% at 92% 100%,
+      rgba(154, 154, 154, 0.08) 0%,
+      transparent 60%
+    ),
+    var(--ink);
+}
+
+.hero-grid {
+  background-image: none;
+}
+
+/* ══ Header ═════════════════════════════════════ */
+
+.glass-header {
+  background: rgba(8, 9, 10, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* ══ Light theme (member / admin) ═══════════════ */
+
+.light-theme {
+  --background: #f5f3ee;
+  --foreground: #14181c;
+  --muted-foreground: #6b6459;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border-subtle: rgba(20, 24, 28, 0.1);
+  --border-strong: rgba(20, 24, 28, 0.2);
+  --brado-blue-light: #2c5f80;
+  --legacy-mustard: #9a6f14;
+  --brado-gray: #efece4;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* ══ Reduced motion ════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .swell,
+  .scroll-cue,
+  .live-dot,
+  .curtain-line {
+    animation: none !important;
+  }
+
+  .hero-stagger > * {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .sr-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ══ Brand devices, lifted from the flyer ═══════ */
+
+/*
+ * The logo skews its wordmark -12deg. The flyer repeats that angle in its
+ * diagonal banners, so the whole site uses it: blocks, bands and rules.
+ */
+
+.brand-block {
+  display: inline-block;
+  transform: skewX(-12deg);
+  background: var(--brand);
+  color: #ffffff;
+  padding: 0 0.28em 0.04em;
+}
+
+.brand-rule {
+  height: 6px;
+  transform: skewX(-12deg);
+  background: linear-gradient(
+    90deg,
+    var(--brand-bright) 0%,
+    var(--brand) 55%,
+    transparent 100%
+  );
+}
+
+/* Big diagonal banner behind the type */
+.brand-band {
+  position: absolute;
+  transform: skewY(-7deg);
+  background: linear-gradient(
+    92deg,
+    rgba(23, 54, 159, 0.9) 0%,
+    rgba(23, 54, 159, 0.5) 48%,
+    transparent 100%
+  );
+}
+
+/* Blue-and-white diagonal stripes from the flyer corner */
+.flag-stripes {
+  background-image: repeating-linear-gradient(
+    -68deg,
+    var(--brand) 0 9px,
+    #ffffff 9px 18px
+  );
+}
+
+/* Concrete: the flyer's grey, as a surface rather than a colour */
+.concrete-plate {
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(
+      70% 60% at 15% 0%,
+      rgba(154, 154, 154, 0.09) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      60% 50% at 95% 100%,
+      rgba(23, 54, 159, 0.16) 0%,
+      transparent 70%
+    );
+}
+
+/* Number plate for step/row indices */
+.index-plate {
+  font-family: var(--font-poster), "Arial Narrow", system-ui, sans-serif;
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border-strong);
+  transition: -webkit-text-stroke-color 0.4s ease;
+}
+
+.group:hover .index-plate {
+  -webkit-text-stroke-color: var(--signal);
+}
+
+/* Google Maps embed, pulled into the dark theme */
+.map-dark {
+  filter: invert(92%) hue-rotate(185deg) saturate(70%) contrast(92%);
+}
+
+/* Drop cap for the opening paragraph of the story */
+.drop-cap::first-letter {
+  font-family: var(--font-poster), "Arial Narrow", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 4.5rem;
+  line-height: 0.78;
+  float: left;
+  margin: 0.1rem 0.7rem 0 0;
+  color: var(--signal);
+}
