@@ -4,10 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
-import { CurtainEntrance } from "@/components/curtain-entrance";
-import { getProfile, getSessionUser } from "@/lib/auth";
 import "../globals.css";
 
 /* Poster face — condensed, heavy, full Greek support */
@@ -37,7 +33,7 @@ export const metadata: Metadata = {
     template: "%s | Brado Training Center",
   },
   description:
-    "Προσωπική προπόνηση στον Πειραιά, στην ακτή Θεμιστοκλέους. Μικρές ομάδες, ζεστή ατμόσφαιρα, κράτηση ωρών online.",
+    "Προσωπική προπόνηση στον Πειραιά, στην ακτή Θεμιστοκλέους. Μικρές ομάδες, ζεστή ατμόσφαιρα, δίπλα στη θάλασσα.",
 };
 
 export function generateStaticParams() {
@@ -55,14 +51,6 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  const user = await getSessionUser();
-  let isAdmin = false;
-  let isLoggedIn = false;
-  if (user) {
-    isLoggedIn = true;
-    const profile = await getProfile(user.id);
-    isAdmin = profile?.role === "admin";
-  }
 
   return (
     /*
@@ -74,12 +62,8 @@ export default async function LocaleLayout({
       className={`${bodyFont.variable} ${posterFont.variable} ${microFont.variable} h-full`}
     >
       <body className="flex min-h-full flex-col antialiased">
-        <NextIntlClientProvider messages={messages}>
-          <CurtainEntrance />
-          <SiteHeader isAdmin={isAdmin} isLoggedIn={isLoggedIn} />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </NextIntlClientProvider>
+        {/* Public site: (site)/ — member area: (classic)/ */}
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

@@ -70,3 +70,79 @@ export function readAthensClock(date = new Date()): AthensClock {
 
   return { dayKey, time, isOpen, closesAt: close, opensAt: open };
 }
+
+function toHHMM(minutes: number) {
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+}
+
+export type SessionStart = {
+  dayKey: DayKey;
+  /** 0 = today, 1 = tomorrow, … */
+  dayOffset: number;
+  start: string;
+  end: string;
+  /** Starts within the next slot interval — "boarding". */
+  boarding: boolean;
+};
+
+/**
+ * The next `count` session start times from now, walking forward through the
+ * real opening hours. Sessions start every slot interval and must finish by
+ * closing time, so the last start is `close - sessionMinutes`.
+ */
+export function upcomingStarts(clock: AthensClock, count: number): SessionStart[] {
+  const [h, m] = clock.time.split(":").map(Number);
+  const now = h * 60 + m;
+  const todayIndex = DAY_ORDER.indexOf(clock.dayKey);
+  const out: SessionStart[] = [];
+
+  for (let offset = 0; offset < 8 && out.length < count; offset++) {
+    const dayKey = DAY_ORDER[(todayIndex + offset) % 7];
+    const { open, close } = WEEKLY_HOURS[dayKey];
+    if (!open || !close) continue;
+
+    const lastStart = toMinutes(close) - GYM.sessionMinutes;
+    let t = toMinutes(open);
+    if (offset === 0) {
+      const step = GYM.slotIntervalMinutes;
+      t = Math.max(t, Math.ceil(now / step) * step);
+    }
+
+    for (; t <= lastStart && out.length < count; t += GYM.slotIntervalMinutes) {
+      out.push({
+        dayKey,
+        dayOffset: offset,
+        start: toHHMM(t),
+        end: toHHMM(t + GYM.sessionMinutes),
+        boarding: offset === 0 && t - now < GYM.slotIntervalMinutes,
+      });
+    }
+  }
+
+  return out;
+}
+
+/** When the doors next open, for the "closed" state. */
+export function nextOpening(clock: AthensClock): { dayKey: DayKey; dayOffset: number; time: string } | null {
+  const [h, m] = clock.time.split(":").map(Number);
+  const now = h * 60 + m;
+  const todayIndex = DAY_ORDER.indexOf(clock.dayKey);
+
+  for (let offset = 0; offset < 8; offset++) {
+    const dayKey = DAY_ORDER[(todayIndex + offset) % 7];
+    const { open } = WEEKLY_HOURS[dayKey];
+    if (!open) continue;
+    if (offset === 0 && toMinutes(open) <= now) continue;
+    return { dayKey, dayOffset: offset, time: open };
+  }
+
+  return null;
+}
+
+/** Share of the day elapsed, 0–1, for the "now" needle. */
+export function dayProgress(clock: AthensClock) {
+  const [h, m] = clock.time.split(":").map(Number);
+  return (h * 60 + m) / (24 * 60);
+}

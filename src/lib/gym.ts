@@ -16,6 +16,13 @@ export const GYM = {
   cancelCutoffHours: 2,
 } as const;
 
+/* Geocoded from OpenStreetMap: 44 Akti Themistokleous, Freattyda. */
+export const GYM_COORDS = {
+  lat: 37.9309483,
+  lng: 23.6460246,
+  display: "37°55′51″N 23°38′46″E",
+} as const;
+
 export type DayKey =
   | "monday"
   | "tuesday"
