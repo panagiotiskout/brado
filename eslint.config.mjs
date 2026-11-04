@@ -14,7 +14,6 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Member booking app, parked until it launches (see parked/booking/README.md)
     "parked/**",
-    ".wrangler/**",
   ]),
 ]);
 

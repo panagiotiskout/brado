@@ -2166,12 +2166,7 @@ body:has(.site) {
     color: var(--on-ink-soft);
   }
 
-  .site-footer-legal {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .site-footer-legal a:hover {
+  .site-footer-top:hover {
     color: #fff;
   }
 
@@ -2185,31 +2180,6 @@ body:has(.site) {
     .site-footer-grid {
       grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
     }
-  }
-
-  /* ══ Legal pages ════════════════════════════════ */
-
-  .site-prose {
-    padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 6rem));
-    padding-bottom: clamp(4rem, 10vw, 8rem);
-    max-width: 52rem;
-    margin-inline: 0;
-  }
-
-  .site-prose h1 {
-    margin-bottom: 2rem;
-    font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 900;
-    font-variation-settings: "wdth" 32;
-    line-height: 0.86;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-
-  .site-prose p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--text-soft);
   }
 
   /* ══ Reduced motion ═════════════════════════════ */

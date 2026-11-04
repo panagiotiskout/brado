@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { GYM } from "@/lib/gym";
 
 export async function SiteFooter() {
@@ -76,20 +75,6 @@ export async function SiteFooter() {
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border-subtle px-5 py-5 sm:px-8">
         <span className="micro micro-sm">
           © {new Date().getFullYear()} {GYM.name}
-        </span>
-        <span className="flex items-center gap-4">
-          <Link
-            href="/legal/privacy"
-            className="micro micro-sm transition-colors hover:text-foreground"
-          >
-            {t("privacy")}
-          </Link>
-          <Link
-            href="/legal/terms"
-            className="micro micro-sm transition-colors hover:text-foreground"
-          >
-            {t("terms")}
-          </Link>
         </span>
       </div>
     </footer>

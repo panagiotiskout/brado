@@ -61,15 +61,7 @@
     "hoursWeek": "Mon–Fri: 08:00–23:00",
     "hoursSat": "Sat: 09:00–18:00",
     "hoursSun": "Sun: closed",
-    "contact": "Contact",
-    "privacy": "Privacy",
-    "terms": "Terms"
-  },
-  "legal": {
-    "privacyTitle": "Privacy policy",
-    "termsTitle": "Terms of use",
-    "privacyBody": "We collect registration details and medical clearance for safe participation in training. Files are stored securely in the EU and are not shared with third parties except where required by law.",
-    "termsBody": "Use of the booking platform is for Brado Training Center members. Bookings may be cancelled up to 2 hours before start unless otherwise stated."
+    "contact": "Contact"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

@@ -1,5 +1,4 @@
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { GYM, GYM_COORDS } from "@/lib/gym";
 import { Stripes } from "@/components/site/print";
 
@@ -55,11 +54,9 @@ export async function SiteFooter() {
           © {new Date().getFullYear()} {GYM.name}
         </span>
         <span>We lift each other</span>
-        <span className="site-footer-legal">
-          <Link href="/legal/privacy">{footer("privacy")}</Link>
-          <Link href="/legal/terms">{footer("terms")}</Link>
-          <a href="#top">{t("backToTop")} ↑</a>
-        </span>
+        <a href="#top" className="site-footer-top">
+          {t("backToTop")} ↑
+        </a>
       </div>
     </footer>
   );
