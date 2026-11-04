@@ -3,8 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useAthensClock } from "@/components/use-athens-clock";
 import { Flap } from "@/components/site/flap";
-import { Link } from "@/i18n/navigation";
-import type { DayKey } from "@/lib/gym";
+import { GYM, type DayKey } from "@/lib/gym";
 import { dayProgress, nextOpening, upcomingStarts, type AthensClock } from "@/lib/hours";
 import { cn } from "@/lib/utils";
 
@@ -110,10 +109,10 @@ export function Departures() {
 
       <div className="site-board-foot">
         <p className="site-mono">{t("boardNote")}</p>
-        <Link href="/app/book" className="site-btn site-btn-white">
+        <a href={`tel:+30${GYM.mobile}`} className="site-btn site-btn-white">
           <span>{t("boardCta")}</span>
           <Arrow />
-        </Link>
+        </a>
       </div>
     </div>
   );

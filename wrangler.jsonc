@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "brado",
+  "account_id": "593eb2975d4e7b7c6aa8ff589e753be4",
+  "compatibility_date": "2026-11-04",
+  "workers_dev": true,
+  "routes": [{ "pattern": "bradotraining.com", "custom_domain": true }],
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}

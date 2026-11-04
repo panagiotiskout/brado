@@ -6,7 +6,6 @@ import { Stripes } from "@/components/site/print";
 export async function SiteFooter() {
   const t = await getTranslations("site");
   const footer = await getTranslations("footer");
-  const nav = await getTranslations("nav");
 
   return (
     <footer className="site-footer">
@@ -40,16 +39,6 @@ export async function SiteFooter() {
               <a href={GYM.instagram} target="_blank" rel="noreferrer">
                 {GYM.instagramHandle}
               </a>
-            </p>
-          </div>
-
-          <div>
-            <p className="site-mono site-footer-h">{t("members")}</p>
-            <p>
-              <Link href="/login">{nav("login")}</Link>
-            </p>
-            <p>
-              <Link href="/signup">{nav("signup")}</Link>
             </p>
           </div>
         </div>

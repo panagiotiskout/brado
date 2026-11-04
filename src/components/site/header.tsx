@@ -18,7 +18,6 @@ const SECTIONS = [
 
 export function SiteHeader() {
   const t = useTranslations("site");
-  const nav = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -92,9 +91,6 @@ export function SiteHeader() {
                 ),
               )}
             </span>
-            <Link href="/login" className="site-header-members">
-              {t("members")}
-            </Link>
             <a href={`tel:+30${GYM.mobile}`} className="site-btn site-btn-sm site-header-call">
               <span>{t("callUs")}</span>
             </a>
@@ -135,9 +131,6 @@ export function SiteHeader() {
             {GYM.instagramHandle}
           </a>
           <span className="site-menu-row">
-            <Link href="/login" onClick={() => setOpen(false)}>
-              {nav("login")}
-            </Link>
             <Link href={pathname} locale={locale === "el" ? "en" : "el"} onClick={() => setOpen(false)}>
               {locale === "el" ? "English" : "Ελληνικά"}
             </Link>
